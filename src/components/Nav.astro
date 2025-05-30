@@ -1,0 +1,62 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+
+import navData from "../data/navData";
+---
+
+<nav aria-label="Primary">
+    <div class="navbar">
+        <div class="logo">
+            <a href="/">Portfolio</a>
+        </div>
+        <div class="nav-links">
+            {
+                navData.map((item) => {
+                    return (
+                        <a href={item.path} class={currentPath === item.path.slice(1) ? "active" : ""}>
+                            {item.label}
+                        </a>
+                    )
+                })
+            }
+        </div>
+    </div>
+</nav>
+
+<style>
+    nav {
+        padding: 1rem 0;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    .logo a {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: #000;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: #555;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+        color: #000;
+    }
+    .nav-links a.active {
+        color: #000;
+        font-weight: 700;
+    }
+</style>
